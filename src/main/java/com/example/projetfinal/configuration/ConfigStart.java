@@ -26,7 +26,11 @@ public class ConfigStart  implements CommandLineRunner {
     }
     @Override
     public void run(String... args) throws Exception {
+        if(clientRepository.findAll().isEmpty() && voitureRepository.findAll().isEmpty()
+        && reservationRepository.findAll().isEmpty()){
+
         creerReservationsAvecVoitureEtClient(clientRepository);
+        }
     }
 
     private void creerReservationsAvecVoitureEtClient(ClientRepository clientRepository){
