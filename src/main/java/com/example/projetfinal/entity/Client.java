@@ -1,5 +1,7 @@
 package com.example.projetfinal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +15,9 @@ import java.util.List;
 @Setter
 @ToString
 @Table(name="client")
+@JsonIdentityInfo( //Pour aller dans les 2 sens
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

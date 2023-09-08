@@ -53,7 +53,14 @@ public class ConfigStart  implements CommandLineRunner {
         reservation1.setEmploye("David");
         reservation1.setVoiture(voiture1);
 
+        Client client2 = new Client();
+        client2.setNom("Bob2");
+        client2.setPrenom("George2");
+        client2.setAdresse("1000 rue2");
+        client2.setTelephone("222-222-4444");
+
         client1.add(reservation1);
         clientRepository.save(client1);
+        clientRepository.save(client2);
     }
 }
