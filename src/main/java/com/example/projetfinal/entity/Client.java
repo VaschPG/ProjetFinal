@@ -29,5 +29,6 @@ public class Client {
             reservations = new ArrayList<>();
         }
         reservations.add(reservation);
+        reservation.setClient(this);
     }
 }
