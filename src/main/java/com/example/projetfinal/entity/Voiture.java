@@ -20,5 +20,4 @@ public class Voiture {
     @Column(unique = true)
     String license;
     double price;
-
 }
