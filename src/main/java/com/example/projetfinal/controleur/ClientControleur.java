@@ -37,7 +37,7 @@ public class ClientControleur {
     @GetMapping("/clients")
     public List<Client> getAllClients() { return clientService.findAll();}
 
-    @PostMapping("/clients")
+    @PostMapping("/client")
     public Client saveClient(@RequestBody Client client) {
 
         return clientService.saveClient(client);

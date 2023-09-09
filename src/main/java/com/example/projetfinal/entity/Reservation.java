@@ -1,6 +1,5 @@
 package com.example.projetfinal.entity;
 
-import com.example.projetfinal.repository.VoitureRepository;
 import jakarta.persistence.*;
 import lombok.*;
 
