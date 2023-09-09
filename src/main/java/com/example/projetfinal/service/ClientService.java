@@ -7,6 +7,7 @@ import java.util.List;
 public interface ClientService {
     Client saveClient(Client client);
     Client findClientById(int id) throws Exception;
-    boolean deleteClientById(int id);
-    List<Client> findAll();
+    void deleteClientById(int id);
+
+    List<Client> findAllClients();
 }

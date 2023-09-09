@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -23,31 +22,18 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client findClientById(int id) throws Exception {
-        Client client = null;
-
-        Optional<Client> optionalClient = clientRepository.findById(id);
-        if(optionalClient.isPresent()){
-            client= optionalClient.get();
-        }else{
-            throw new Exception();
-        }
-        return client;
-
+        return clientRepository.findById(id).get();
     }
 
     @Override
-    public boolean deleteClientById(int id) {
-        Optional<Client> optionalClient = clientRepository.findById(id);
-        if(optionalClient.isPresent()){
+    public void deleteClientById(int id) {
+        if(clientRepository.existsById(id)){
             clientRepository.deleteById(id);
-            return true;
         }
-        return false;
-
     }
 
     @Override
-    public List<Client> findAll() {
+    public List<Client> findAllClients() {
         return clientRepository.findAll();
     }
 }
