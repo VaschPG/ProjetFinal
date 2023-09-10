@@ -59,8 +59,16 @@ public class ConfigStart  implements CommandLineRunner {
         client2.setAdresse("1000 rue2");
         client2.setTelephone("222-222-4444");
 
+        Client client3 = new Client();
+        client3.setNom("eh");
+        client3.setPrenom("bluh");
+        client3.setAdresse("5000 ru");
+        client3.setTelephone("111-111-1111");
+
+
         client1.add(reservation1);
         clientRepository.save(client1);
         clientRepository.save(client2);
+        clientRepository.save(client3);
     }
 }

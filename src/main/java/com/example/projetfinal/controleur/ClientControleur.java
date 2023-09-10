@@ -18,11 +18,24 @@ public class ClientControleur {
     public ClientControleur(ClientService clientService){
         this.clientService = clientService;;
     }
-    @GetMapping("/gestion-client")
-    public String indexClient(Model model){
-        List<Client> listClients = clientService.findAllClients();
-        model.addAttribute("client",new Client());
-        model.addAttribute("listClients", listClients);
+//    @GetMapping("/gestion-client")
+//    public String indexClient(Model model){
+//        List<Client> listClients = clientService.findAllClients();
+//        model.addAttribute("client",new Client());
+//        model.addAttribute("listClients", listClients);
+//        return "gestion-client";
+//    }
+    @GetMapping("gestion-client")
+    public String updatePageChercher(Model model,@ModelAttribute("client") Client client) {
+        if(client.getNom() != null && client.getTelephone() != null || client.getAdresse() != null){
+            List<Client> list = clientService.findClientsByParams(client.getNom(),client.getTelephone(),client.getAdresse());
+            model.addAttribute("listClients",list);
+            System.out.println("tests");
+        }else{
+            List<Client> listClients = clientService.findAllClients();
+             model.addAttribute("client",new Client());
+             model.addAttribute("listClients", listClients);
+        }
         return "gestion-client";
     }
     @GetMapping("/clients/{id}")
@@ -41,13 +54,10 @@ public class ClientControleur {
     public ResponseEntity<List> getAllClients() { return
             new ResponseEntity<>(clientService.findAllClients(),HttpStatus.NOT_FOUND);}
 
-    @PostMapping("/client")
-    public Client saveClient(@RequestBody Client client) {
-        return clientService.saveClient(client);
-    }
 
-    @DeleteMapping(path="/client/delete/{id}")
-    public void deleteClientById(@PathVariable("id") int id) throws Exception {
+    @DeleteMapping("/client/{id}")
+    public String deleteClientById(@PathVariable("id") int id){
         clientService.deleteClientById(id);
+        return "redirect:/gestion-client";
     }
 }

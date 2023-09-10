@@ -21,7 +21,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client findClientById(int id) throws Exception {
+    public Client findClientById(int id){
         return clientRepository.findById(id).get();
     }
 
@@ -35,5 +35,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<Client> findAllClients() {
         return clientRepository.findAll();
+    }
+
+    @Override
+    public List<Client> findClientsByParams(String nom, String telephone, String adresse) {
+        return clientRepository.findClientsByParams(nom,telephone,adresse);
     }
 }
