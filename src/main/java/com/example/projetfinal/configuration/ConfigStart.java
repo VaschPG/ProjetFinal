@@ -79,6 +79,7 @@ public class ConfigStart  implements CommandLineRunner {
         String ligne = "";
         String splitBy = ",";
         List<Client> listClient = new ArrayList<>();
+        creerVoitures();//Creations de voitures
         try
         {
             BufferedReader br = new BufferedReader(new FileReader("src/main/resources/clients.csv"));
@@ -94,7 +95,7 @@ public class ConfigStart  implements CommandLineRunner {
                 listClient.add(newClient);
             }
 
-            creerReservations(listClient,creerVoitures());
+            creerReservations(listClient);
         }
         catch (IOException e)
         {
@@ -102,10 +103,9 @@ public class ConfigStart  implements CommandLineRunner {
         }
     }
 
-    public List<Voiture> creerVoitures() {
+    public void creerVoitures() {
         String ligne = "";
         String splitBy = ",";
-        List<Voiture> listVoiture = new ArrayList<>();
         try
         {
             BufferedReader br = new BufferedReader(new FileReader("src/main/resources/voitures.csv"));
@@ -119,18 +119,16 @@ public class ConfigStart  implements CommandLineRunner {
                 newVoiture.setModel(voiture[2]);
                 newVoiture.setLicense(voiture[3]);
                 newVoiture.setPrice(Double.parseDouble(voiture[4]));
-                listVoiture.add(newVoiture);
+                voitureRepository.save(newVoiture);
             }
-            return listVoiture;
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
-        return null;
     }
 
-    public void creerReservations(List<Client> listClient, List<Voiture> listVoiture) {
+    public void creerReservations(List<Client> listClient) {
         String ligne = "";
         String splitBy = ",";
         int i = 0;
@@ -146,7 +144,8 @@ public class ConfigStart  implements CommandLineRunner {
                     Date date = new SimpleDateFormat("dd/mm/yyyy").parse(reservation[1]);
                     newReservation.setDate(date);
                     newReservation.setEmploye(reservation[2]);
-                    newReservation.setVoiture(listVoiture.get(Integer.parseInt(reservation[3])));
+                    newReservation.setVoiture(voitureRepository.findById(Integer.parseInt(reservation[3])).get());
+                    System.out.println("test");
                     listClient.get(i).add(newReservation);
                 }
                 clientRepository.save(listClient.get(i));

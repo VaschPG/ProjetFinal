@@ -16,7 +16,7 @@ public class ClientControleur {
     @Autowired
     private ClientService clientService;
     public ClientControleur(ClientService clientService){
-        this.clientService = clientService;;
+        this.clientService = clientService;
     }
 //    @GetMapping("/gestion-client")
 //    public String indexClient(Model model){

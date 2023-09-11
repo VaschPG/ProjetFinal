@@ -23,7 +23,7 @@ public class Reservation {
     @JoinColumn(name="client_id")
     private Client client;
 
-    @OneToOne(cascade = {CascadeType.PERSIST})
+    @OneToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name="reservation_voiture_FK")
     private Voiture voiture;
 
