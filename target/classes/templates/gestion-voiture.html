@@ -26,7 +26,7 @@
     </div>
     <div class="row">
         <h3>
-            <a href="/gestion-voiture">Gestion de Voitures</a>
+            <a href="/gestion-client">Gestion de Voitures</a>
         </h3>
     </div>
     <form th:action="@{gestion-voiture}" th:object="${voiture}" method="get">
@@ -37,12 +37,12 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text">Nom</div>
                     </div>
-                    <input type="text" name="nom" th:value="*{nom}" class="form-control">
+                    <input type="text" name="nom" th:value="*{year}" class="form-control">
 
                     <div class="input-group-prepend">
                         <div class="input-group-text">Telephone</div>
                     </div>
-                    <input type="text" name="telephone" th:value="*{telephone}" class="form-control">
+                    <input type="text" name="telephone" th:value="*{mileage}" class="form-control">
                 </div>
             </div>
             <div class="col"></div>
@@ -54,7 +54,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text">Adresse</div>
                     </div>
-                    <input type="text" name="adresse" th:value="*{adresse}" class="form-control">
+                    <input type="text" name="adresse" th:value="*{price}" class="form-control">
                     <button type="submit" class="btn btn-primary">Chercher</button>
                 </div>
             </div>
@@ -76,10 +76,10 @@
 
             <tr class="table-light" th:each="voiture: ${listVoiture}">
                 <td th:text="${voiture.getModel()}"/>
-                <td th:text="${voiture.getAnnee()}"/>
+                <td th:text="${voiture.getYear()}"/>
                 <td th:text="${voiture.getMileage()}"/>
-                <td th:text="${voiture.getLicence()}"/>
-                <td th:text="${voiture.getPrix()}"/>
+                <td th:text="${voiture.getLicense()}"/>
+                <td th:text="${voiture.getPrice()}"/>
                 <td>
                     <form th:action="@{'voiture/{id}'(id=${voiture.getId()})}" th:method="DELETE">
                         <button class="fa fa-trash btn btn-danger" aria-hidden="true" type="submit"></button>
