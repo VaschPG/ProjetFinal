@@ -8,4 +8,6 @@ public interface ReservationService {
     List<Reservation> findAll();
     Reservation deleteReservation(int id);
     Reservation findById(int id);
+
+    List<Reservation> findAllClientReservationsById(int id);
 }
