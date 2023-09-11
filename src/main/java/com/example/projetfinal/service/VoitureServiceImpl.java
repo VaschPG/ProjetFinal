@@ -39,8 +39,19 @@ public class VoitureServiceImpl implements VoitureService {
     }
 
     @Override
+    public void deleteVoitureById(int id) {
+        if(voitureRepository.existsById(id))
+            voitureRepository.deleteById(id);
+    }
+
+    @Override
     public Voiture add(Voiture voiture) {
         return voitureRepository.save(voiture);
+    }
+
+    @Override
+    public List<Voiture> findVoitureByParam(int year, int mileage, String model, String license, double price) {
+        return voitureRepository.findVoituresByParams(year,mileage,model,license,price);
     }
 
     @Override
@@ -57,11 +68,25 @@ public class VoitureServiceImpl implements VoitureService {
 
     @Override
     public List<Voiture> findVoitureByYear(int year) {
-        return null;
+        List<Voiture> voitures= voitureRepository.findAll();
+        List<Voiture> voitureYear= new ArrayList<>();
+        for(Voiture voiture: voitures){
+            if (voiture.getYear()==year){
+                voitureYear.add(voiture);
+            }
+        }
+        return voitureYear;
     }
 
     @Override
     public List<Voiture> findVoitureByMileage(int mileage) {
-        return null;
+        List<Voiture> voitures=voitureRepository.findAll();
+        List<Voiture> voitureMileage=new ArrayList<>();
+        for (Voiture voiture:voitures){
+            if (voiture.getMileage()==mileage){
+                voitureMileage.add(voiture);
+            }
+        }
+        return voitureMileage;
     }
 }
