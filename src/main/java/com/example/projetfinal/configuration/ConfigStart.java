@@ -10,7 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.io.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class ConfigStart  implements CommandLineRunner {
@@ -28,12 +34,14 @@ public class ConfigStart  implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if(clientRepository.findAll().isEmpty() && voitureRepository.findAll().isEmpty()
         && reservationRepository.findAll().isEmpty()){
-
-        creerReservationsAvecVoitureEtClient(clientRepository);
+        creerClientsEtReservationsEtVoiture();
+        //creerReservationsAvecVoitureEtClient(clientRepository);
         }
     }
 
     private void creerReservationsAvecVoitureEtClient(ClientRepository clientRepository){
+
+
         Client client1 = new Client();
         client1.setNom("Bob");
         client1.setPrenom("George");
@@ -59,16 +67,97 @@ public class ConfigStart  implements CommandLineRunner {
         client2.setAdresse("1000 rue2");
         client2.setTelephone("222-222-4444");
 
-        Client client3 = new Client();
-        client3.setNom("eh");
-        client3.setPrenom("bluh");
-        client3.setAdresse("5000 ru");
-        client3.setTelephone("111-111-1111");
-
-
         client1.add(reservation1);
+
         clientRepository.save(client1);
         clientRepository.save(client2);
-        clientRepository.save(client3);
+
+
+    }
+
+    public void creerClientsEtReservationsEtVoiture() {
+        String ligne = "";
+        String splitBy = ",";
+        List<Client> listClient = new ArrayList<>();
+        try
+        {
+            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/clients.csv"));
+            br.readLine(); //Ignorer la premier ligne
+            while ((ligne = br.readLine()) != null)
+            {
+                String[] client = ligne.split(splitBy);
+                Client newClient = new Client();
+                newClient.setNom(client[0]);
+                newClient.setPrenom(client[1]);
+                newClient.setTelephone(client[2]);
+                newClient.setAdresse(client[3]);
+                listClient.add(newClient);
+            }
+
+            creerReservations(listClient,creerVoitures());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Voiture> creerVoitures() {
+        String ligne = "";
+        String splitBy = ",";
+        List<Voiture> listVoiture = new ArrayList<>();
+        try
+        {
+            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/voitures.csv"));
+            br.readLine(); //Ignorer la premier ligne
+            while ((ligne = br.readLine()) != null)
+            {
+                String[] voiture = ligne.split(splitBy);
+                Voiture newVoiture = new Voiture();
+                newVoiture.setYear(Integer.parseInt(voiture[0]));
+                newVoiture.setMileage(Integer.parseInt(voiture[1]));
+                newVoiture.setModel(voiture[2]);
+                newVoiture.setLicense(voiture[3]);
+                newVoiture.setPrice(Double.parseDouble(voiture[4]));
+                listVoiture.add(newVoiture);
+            }
+            return listVoiture;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void creerReservations(List<Client> listClient, List<Voiture> listVoiture) {
+        String ligne = "";
+        String splitBy = ",";
+        int i = 0;
+        try
+        {
+            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/reservations.csv"));
+            br.readLine(); //Ignorer la premier ligne
+            while ((ligne = br.readLine()) != null)
+            {
+                String[] reservation = ligne.split(splitBy);
+                if(!reservation[0].equals("")){
+                    Reservation newReservation = new Reservation();
+                    Date date = new SimpleDateFormat("dd/mm/yyyy").parse(reservation[1]);
+                    newReservation.setDate(date);
+                    newReservation.setEmploye(reservation[2]);
+                    newReservation.setVoiture(listVoiture.get(Integer.parseInt(reservation[3])));
+                    listClient.get(i).add(newReservation);
+                }
+                clientRepository.save(listClient.get(i));
+                i++;
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
