@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+
 @Table(name="client")
 @JsonIdentityInfo( //Pour aller dans les 2 sens
         generator = ObjectIdGenerators.PropertyGenerator.class,
