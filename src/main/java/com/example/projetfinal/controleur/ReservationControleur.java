@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/gestion-reservation")
+@RequestMapping("/gestion-reservations")
 public class ReservationControleur {
 
     @Autowired
@@ -33,7 +33,7 @@ public class ReservationControleur {
     @PostMapping("/delete/{id}")
     public String supprimerReservation (@PathVariable("id") int id) {
         reservationService.deleteReservation(id);
-        return "redirect:/gestion-reservation";
+        return "redirect:/gestion-reservations";
     }
 
 }
