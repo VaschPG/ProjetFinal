@@ -6,16 +6,32 @@ import com.example.projetfinal.service.VoitureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+//@RestController
+@Controller
 public class VoitureControleur {
     @Autowired
     private VoitureService voitureService;
     public VoitureControleur(VoitureService voitureService){
         this.voitureService=voitureService;
+    }
+
+    @GetMapping("gestion-voiture")
+    public String pageVoiture(Model model, @ModelAttribute("voiture") Voiture voiture) {
+        if(voiture.getModel() != null && voiture.getYear() != 0 && voiture.getMileage() != 0 && voiture.getLicense() != null && voiture.getPrice() != 0){
+            List<Voiture> list = voitureService.findVoitureByParam(voiture.getYear(),voiture.getMileage(),voiture.getModel(), voiture.getLicense(),voiture.getPrice());
+            model.addAttribute("listVoiture",list);
+        }else{
+            List<Voiture> listVoitures = voitureService.findAll();
+            model.addAttribute("voiture",new Voiture());
+            model.addAttribute("listVoiture", listVoitures);
+        }
+        return "gestion-voiture";
     }
     @GetMapping("/voiture/{id}")
     public ResponseEntity<Voiture> getVoitureById(@PathVariable("id") int id) throws Exception {
@@ -35,8 +51,24 @@ public class VoitureControleur {
     public  List<Voiture> getAllVoiture(){
         return  voitureService.findAll();
     }
+    @GetMapping("/voiture/price/{price}")
+    public List<Voiture> getVoitureByPriceInf(@PathVariable("price") double price){
+        List<Voiture> voitures=voitureService.findVoitureByPriceInf(price);
+        return voitures;
+    }
+    @GetMapping("/voiture/year/{year}")
+    public List<Voiture> getVoitureByYear(@PathVariable("year") int year){
+        List<Voiture> voitures=voitureService.findVoitureByYear(year);
+        return voitures;
+    }
+    @GetMapping("/voiture/mileage/{mileage}")
+    public List<Voiture> getVoitureByMileage(@PathVariable("mileage") int mileage){
+        List<Voiture> voitures=voitureService.findVoitureByMileage(mileage);
+        return voitures;
+    }
     @PostMapping("/voiture")
     public Voiture saveVoiture(@RequestBody Voiture voiture){
         return voitureService.add(voiture);
     }
+
 }
