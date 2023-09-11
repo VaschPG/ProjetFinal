@@ -1,7 +1,9 @@
 package com.example.projetfinal.controleur;
 
 import com.example.projetfinal.entity.Client;
+import com.example.projetfinal.entity.Reservation;
 import com.example.projetfinal.service.ClientService;
+import com.example.projetfinal.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,10 @@ import java.util.List;
 public class ClientControleur {
     @Autowired
     private ClientService clientService;
+
+    @Autowired
+    private ReservationService reservationService;
+
     public ClientControleur(ClientService clientService){
         this.clientService = clientService;;
     }
@@ -54,6 +60,18 @@ public class ClientControleur {
     public ResponseEntity<List> getAllClients() { return
             new ResponseEntity<>(clientService.findAllClients(),HttpStatus.NOT_FOUND);}
 
+
+    @GetMapping("/gestion-reservation/{id}")
+    public String gestionReservations(@PathVariable("id") int id, Model model) {
+
+        Client client = clientService.findClientById(id);
+
+        List<Reservation> listReservations = client.getReservations();
+
+        model.addAttribute("listReservations", listReservations);
+
+        return "gestion-reservations";
+    }
 
     @DeleteMapping("/client/{id}")
     public String deleteClientById(@PathVariable("id") int id){
