@@ -1,6 +1,8 @@
 package com.example.projetfinal.controleur;
 
+import com.example.projetfinal.entity.Client;
 import com.example.projetfinal.entity.Reservation;
+import com.example.projetfinal.service.ClientService;
 import com.example.projetfinal.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
@@ -16,12 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ReservationControleur {
 
     @Autowired
-
     private ReservationService reservationService;
 
-    public ReservationControleur (ReservationService reservationService) {
-        this.reservationService = reservationService;
-    }
+    @Autowired
+    private ClientService clientService;
+
 
     @GetMapping
     public String gestionReservations (Model model) {
@@ -34,6 +35,18 @@ public class ReservationControleur {
     public String supprimerReservation (@PathVariable("id") int id) {
         reservationService.deleteReservation(id);
         return "redirect:/gestion-reservations";
+    }
+
+    @GetMapping("/{id}")
+    public String gestionReservations(@PathVariable("id") int id, Model model) {
+
+        Client client = clientService.findClientById(id);
+
+        List<Reservation> listReservations = client.getReservations();
+
+        model.addAttribute("listReservations", listReservations);
+
+        return "gestion-reservations";
     }
 
 }

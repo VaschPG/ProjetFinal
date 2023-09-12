@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="col">
-                <button class="btn btn-success">Ajouter un client</button>
+                <button type="button" class="btn btn-success" onclick="window.location.href='/client-form'">Ajouter un client</button>
             </div>
         </div>
     </form>
@@ -83,11 +83,15 @@
                 <td>
                     <span th:if="${client.getReservations()?.isEmpty()}">Aucune reservation</span>
                     <span th:unless="${client.getReservations()?.isEmpty()}"><a
-                            th:href="@{gestion-reservation/{id}(id=${client.getId()})}">Reservations</a></span>
+                            th:href="@{gestion-reservations/{id}(id=${client.getId()})}">Reservations</a></span>
                 </td>
                 <td>
+                    <form th:action="@{'gestion-client/{id}'(id=${client.getId()})}" th:method="GET">
+                        <button class="pull-left fa fa-pencil btn btn-warning" type="submit" title="Modifier"></button>
+                    </form>
+
                     <form th:action="@{'client/{id}'(id=${client.getId()})}" th:method="DELETE">
-                    <button class="fa fa-trash btn btn-danger" aria-hidden="true" type="submit"></button>
+                    <button class="pull-right fa fa-trash btn btn-danger" type="submit"></button>
                     </form>
                 </td>
             </tr>
