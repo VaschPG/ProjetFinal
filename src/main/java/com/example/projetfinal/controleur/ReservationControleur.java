@@ -2,6 +2,7 @@ package com.example.projetfinal.controleur;
 
 import com.example.projetfinal.entity.Reservation;
 import com.example.projetfinal.service.ReservationService;
+import com.example.projetfinal.service.ReservationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import org.springframework.ui.Model;
@@ -36,4 +37,10 @@ public class ReservationControleur {
         return "redirect:/gestion-reservations";
     }
 
+    @GetMapping("/reservation/details/{id}")
+    public String reservationDetails(@PathVariable int id, Model model) {
+        Reservation reservation = reservationService.findById(id);
+        model.addAttribute("reservation",reservation);
+        return "details-reservation";
+    }
 }

@@ -27,8 +27,4 @@ public class ReservationServiceImpl implements ReservationService {
         return reservationRepository.findById(id).orElse(null);
     }
 
-    @Override
-    public List<Reservation> findAllClientReservationsById (int id){
-        return null;
-    }
 }

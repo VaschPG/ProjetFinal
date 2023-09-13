@@ -1,6 +1,8 @@
 package com.example.projetfinal.controleur;
 
 import com.example.projetfinal.entity.Client;
+import com.example.projetfinal.entity.Reservation;
+import com.example.projetfinal.service.ReservationService;
 import com.example.projetfinal.entity.Voiture;
 import com.example.projetfinal.service.VoitureService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import java.util.List;
 public class VoitureControleur {
     @Autowired
     private VoitureService voitureService;
+
     public VoitureControleur(VoitureService voitureService){
         this.voitureService=voitureService;
     }
@@ -70,5 +73,13 @@ public class VoitureControleur {
     public Voiture saveVoiture(@RequestBody Voiture voiture){
         return voitureService.add(voiture);
     }
+
+    @GetMapping("/gestion-location-voiture")
+    public String gestionLocationVoitures(Model model) {
+        List<Voiture> listVoitures = voitureService.findAll();
+        model.addAttribute("listVoiture", listVoitures);
+        return "gestion-location-voiture";
+    }
+
 
 }

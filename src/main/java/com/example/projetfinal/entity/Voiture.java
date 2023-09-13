@@ -20,6 +20,13 @@ public class Voiture {
     @Column(unique = true)
     String license;
     double price;
+    boolean disponible;
+
+    Integer reservationId;
+
+
+    @OneToOne(mappedBy = "voiture")
+    private Reservation reservation;
 
     public int getId() {
         return id;
@@ -68,4 +75,16 @@ public class Voiture {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
+
+    public Integer getReservationId() {return reservationId; }
+
+    public void setReservationId(Integer reservationId) {this.reservationId = reservationId;}
 }
