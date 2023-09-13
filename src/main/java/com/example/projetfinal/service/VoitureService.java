@@ -8,6 +8,7 @@ import java.util.List;
 public interface VoitureService {
     Voiture findVoitureByLicense(String license);
     Voiture findVoitureById(int id) throws Exception;
+    //void updateVoiture(int id, int year, int mileage, String model, String licence, double price);
     List<Voiture> findAll();
     void deleteVoitureById(int id);
     Voiture add(Voiture voiture);
@@ -15,4 +16,5 @@ public interface VoitureService {
     List<Voiture> findVoitureByPriceInf(double price);
     List<Voiture> findVoitureByYear(int year);
     List<Voiture> findVoitureByMileage(int mileage);
+
 }

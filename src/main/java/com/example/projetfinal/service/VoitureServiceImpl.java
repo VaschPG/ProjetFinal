@@ -13,6 +13,7 @@ import java.util.Optional;
 public class VoitureServiceImpl implements VoitureService {
     @Autowired
     private VoitureRepository voitureRepository;
+    public VoitureServiceImpl(){}
     public VoitureServiceImpl(VoitureRepository voitureRepository){
         this.voitureRepository=voitureRepository;
     }
@@ -32,6 +33,11 @@ public class VoitureServiceImpl implements VoitureService {
         }
         return voiture;
     }
+
+ /**   @Override
+   public void updateVoiture(int id, int year, int mileage, String model, String licence, double price) {
+        voitureRepository.updateVoiture(id, year, mileage, model, licence, price);
+    }**/
 
     @Override
     public List<Voiture> findAll() {

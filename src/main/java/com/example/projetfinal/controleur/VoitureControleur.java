@@ -70,5 +70,14 @@ public class VoitureControleur {
     public Voiture saveVoiture(@RequestBody Voiture voiture){
         return voitureService.add(voiture);
     }
+    @DeleteMapping("/voiture/{id}")
+    public String deleteVoitureById(@PathVariable("id") int id){
+        voitureService.deleteVoitureById(id);
+        return "redirect:/gestion-voiture";
+    }
+  /**  @PutMapping("/voiture")
+    public Voiture ajouterVoiture(@PathVariable){
+        return null;
+    }**/
 
 }
