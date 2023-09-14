@@ -96,11 +96,11 @@ public class ReservationControleur {
 
 
     @PostMapping ("/save")
-    public String creerReservation(Model model,@ModelAttribute("reservation") Reservation reservation){
+    public String creerReservation(Model model,@ModelAttribute("reservation") Reservation reservation) {
         System.out.println(reservation.getDate());
-        if(!reservationRepository.existsById(reservation.getId())){
+        if (!reservationRepository.existsById(reservation.getId())) {
             reservationRepository.save(reservation);
-        }else{
+        } else {
             Reservation reservationExistant = reservationRepository.getReferenceById(reservation.getId());
             reservationExistant.setClient(reservation.getClient());
             reservationExistant.setEmploye(reservation.getEmploye());
@@ -109,21 +109,23 @@ public class ReservationControleur {
             reservationRepository.save(reservationExistant);
         }
         return "redirect:/gestion-reservations";
-    @GetMapping("/reservation/details/{id}")
-    public String reservationDetails(@PathVariable int id, Model model) {
-        Reservation reservation = reservationService.findById(id);
-        model.addAttribute("reservation",reservation);
-        return "details-reservation";
     }
-
-    @GetMapping ("/reservation/voiture/{id}")
-    public String reserverVoiture(@PathVariable int id, Model model) {
-
-        Voiture voiture = voitureService.findById(id);
-        if (voiture != null && voiture.isDisponible()) {
-            return "redirect:/gestion-reservations";
-        } else {
-            return "redirect:/details-reservation";
+        @GetMapping("/reservation/details/{id}")
+        public String reservationDetails ( @PathVariable int id, Model model){
+            Reservation reservation = reservationService.findById(id);
+            model.addAttribute("reservation", reservation);
+            return "details-reservation";
         }
-    }
+
+        @GetMapping("/reservation/voiture/{id}")
+        public String reserverVoiture ( @PathVariable int id, Model model){
+
+            Voiture voiture = voitureService.findById(id);
+            if (voiture != null && voiture.isDisponible()) {
+                return "redirect:/gestion-reservations";
+            } else {
+                return "redirect:/details-reservation";
+            }
+        }
+
 }
