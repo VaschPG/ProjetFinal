@@ -13,6 +13,11 @@ import java.util.Optional;
 public class VoitureServiceImpl implements VoitureService {
     @Autowired
     private VoitureRepository voitureRepository;
+    @Override
+    public Voiture findById(int id) {
+        Optional<Voiture> optionalVoiture = voitureRepository.findById(id);
+        return optionalVoiture.orElse(null);
+    }
     public VoitureServiceImpl(VoitureRepository voitureRepository){
         this.voitureRepository=voitureRepository;
     }

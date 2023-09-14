@@ -1,8 +1,10 @@
 package com.example.projetfinal.controleur;
 
 import com.example.projetfinal.entity.Reservation;
+import com.example.projetfinal.entity.Voiture;
 import com.example.projetfinal.service.ReservationService;
 import com.example.projetfinal.service.ReservationServiceImpl;
+import com.example.projetfinal.service.VoitureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import org.springframework.ui.Model;
@@ -19,6 +21,9 @@ public class ReservationControleur {
     @Autowired
 
     private ReservationService reservationService;
+
+    @Autowired
+    private VoitureService voitureService;
 
     public ReservationControleur (ReservationService reservationService) {
         this.reservationService = reservationService;
@@ -42,5 +47,16 @@ public class ReservationControleur {
         Reservation reservation = reservationService.findById(id);
         model.addAttribute("reservation",reservation);
         return "details-reservation";
+    }
+
+    @GetMapping ("/reservation/voiture/{id}")
+    public String reserverVoiture(@PathVariable int id, Model model) {
+
+        Voiture voiture = voitureService.findById(id);
+        if (voiture != null && voiture.isDisponible()) {
+            return "redirect:/gestion-reservations";
+        } else {
+            return "redirect:/details-reservation";
+        }
     }
 }

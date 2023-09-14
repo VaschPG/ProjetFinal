@@ -15,4 +15,7 @@ public interface VoitureService {
     List<Voiture> findVoitureByPriceInf(double price);
     List<Voiture> findVoitureByYear(int year);
     List<Voiture> findVoitureByMileage(int mileage);
+
+    Voiture findById(int id);
+
 }
