@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{'/voiture/' + ${voiture.getId()}}" th:method="PUT">
+  <input type="hidden" name="_method" value="PUT">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <div class="input-group-text">Année</div>
+    </div>
+    <input type="text" name="year" th:value="${voiture.getYear()}" class="form-control">
+  </div>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <div class="input-group-text">Mileage</div>
+    </div>
+    <input type="text" name="mileage" th:value="${voiture.getMileage()}" class="form-control">
+  </div>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <div class="input-group-text">Modèle</div>
+    </div>
+    <input type="text" name="model" th:value="${voiture.getModel()}" class="form-control">
+  </div>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <div class="input-group-text">Licence</div>
+    </div>
+    <input type="text" name="license" th:value="${voiture.getLicense()}" class="form-control">
+  </div>
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <div class="input-group-text">Prix</div>
+    </div>
+    <input type="text" name="price" th:value="${voiture.getPrice()}" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-primary">Mettre à jour</button>
+</form>
+
+</body>
+</html>

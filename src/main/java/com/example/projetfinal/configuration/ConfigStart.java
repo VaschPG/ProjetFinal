@@ -48,7 +48,7 @@ public class ConfigStart  implements CommandLineRunner {
         client1.setAdresse("1000 rue");
         client1.setTelephone("111-222-4444");
 
-        Voiture voiture1 = new Voiture();
+        Voiture voiture1 = new Voiture(1, 2020, 38063, "Suburban 1500", "HFR-943", 1643.0);
         voiture1.setYear(2011);
         voiture1.setMileage(20000);
         voiture1.setModel("Toyota");
@@ -113,7 +113,7 @@ public class ConfigStart  implements CommandLineRunner {
             while ((ligne = br.readLine()) != null)
             {
                 String[] voiture = ligne.split(splitBy);
-                Voiture newVoiture = new Voiture();
+                Voiture newVoiture = new Voiture(1, 2020, 38063, "Suburban 1500", "HFR-943", 1643.0);
                 newVoiture.setYear(Integer.parseInt(voiture[0]));
                 newVoiture.setMileage(Integer.parseInt(voiture[1]));
                 newVoiture.setModel(voiture[2]);

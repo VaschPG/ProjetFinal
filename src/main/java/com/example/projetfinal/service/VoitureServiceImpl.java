@@ -42,6 +42,11 @@ public class VoitureServiceImpl implements VoitureService {
         return voiture;
     }
 
+ /**   @Override
+   public void updateVoiture(int id, int year, int mileage, String model, String licence, double price) {
+        voitureRepository.updateVoiture(id, year, mileage, model, licence, price);
+    }**/
+
     @Override
     public List<Voiture> findAll() {
         return voitureRepository.findAll();
