@@ -81,10 +81,6 @@ public class ClientControleur {
     @PostMapping("/client-form/save")
     public String saveClient(Model model,@ModelAttribute("client") Client client){
         if(!clientRepository.existsById(client.getId())){
-            client.setNom(client.getNom());
-            client.setPrenom(client.getPrenom());
-            client.setAdresse(client.getAdresse());
-            client.setTelephone(client.getTelephone());
             clientRepository.save(client);
         }else{
             Client clientExistant = clientRepository.getReferenceById(client.getId());

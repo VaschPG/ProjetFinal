@@ -13,7 +13,7 @@
 
 <div class="jumbotron d-flex align-items-center">
     <div class="container">
-        <form th:action="@{/client-form/save}" th:object="${client}" method="POST">
+        <form th:action="@{/client-form/save}" th:object="${client}" th:method="POST">
             <div class="form-row">
                 <input type="hidden" name="id" th:value="${client.id}">
                 <div class="form-group col-4">

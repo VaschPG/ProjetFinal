@@ -58,7 +58,9 @@
                     <button type="submit" class="btn btn-primary">Chercher</button>
                 </div>
             </div>
-            <div class="col"></div>
+            <div class="col">
+                <button type="button" class="btn btn-success" onclick="window.location.href='/voiture-form'">Ajouter une voiture</button>
+            </div>
         </div>
     </form>
     <div class="row">
@@ -81,8 +83,12 @@
                 <td th:text="${voiture.getLicense()}"/>
                 <td th:text="${voiture.getPrice()}"/>
                 <td>
+                    <form th:action="@{'gestion-voiture/{id}'(id=${voiture.getId()})}" th:method="GET">
+                        <button class="pull-left fa fa-pencil btn btn-warning" type="submit" title="Modifier"></button>
+                    </form>
+
                     <form th:action="@{'voiture/{id}'(id=${voiture.getId()})}" th:method="DELETE">
-                        <button class="fa fa-trash btn btn-danger" aria-hidden="true" type="submit"></button>
+                        <button class="pull-right fa fa-trash btn btn-danger" aria-hidden="true" type="submit"></button>
                     </form>
                 </td>
             </tr>

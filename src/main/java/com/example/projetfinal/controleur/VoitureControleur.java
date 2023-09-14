@@ -2,6 +2,7 @@ package com.example.projetfinal.controleur;
 
 import com.example.projetfinal.entity.Client;
 import com.example.projetfinal.entity.Voiture;
+import com.example.projetfinal.repository.VoitureRepository;
 import com.example.projetfinal.service.VoitureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,9 @@ import java.util.List;
 public class VoitureControleur {
     @Autowired
     private VoitureService voitureService;
+    @Autowired
+    private VoitureRepository voitureRepository;
+
     public VoitureControleur(VoitureService voitureService){
         this.voitureService=voitureService;
     }
@@ -71,4 +75,32 @@ public class VoitureControleur {
         return voitureService.add(voiture);
     }
 
+
+    @GetMapping("/voiture-form")
+    public String gestionVoitureForm(Model model){
+        model.addAttribute("voiture",new Voiture());
+        return "voiture-form";
+    }
+
+    @PostMapping("/voiture-form/save")
+    public String saveVoiture(Model model,@ModelAttribute("Voiture") Voiture voiture){
+        if(!voitureRepository.existsById(voiture.getId())){
+            voitureRepository.save(voiture);
+        }else{
+            Voiture voitureExistant = voitureRepository.getReferenceById(voiture.getId());
+            voitureExistant.setModel(voiture.getModel());
+            voitureExistant.setLicense(voiture.getLicense());
+            voitureExistant.setYear(voiture.getYear());
+            voitureExistant.setMileage(voiture.getMileage());
+            voitureExistant.setPrice(voiture.getPrice());
+            voitureRepository.save(voitureExistant);
+        }
+        return "redirect:/gestion-voiture";
+    }
+
+    @GetMapping("gestion-voiture/{id}")
+    public String getVoitureFormUpdate(@PathVariable("id") int id,Model model) throws Exception {
+        model.addAttribute("voiture",voitureService.findVoitureById(id));
+        return "voiture-form";
+    }
 }
