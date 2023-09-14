@@ -90,14 +90,8 @@
                     <td th:text="${voiture.license}"></td>
                     <td th:text="${voiture.price}"></td>
                     <td>
-
-                            <span th:if="${voiture.disponible}">
-                                <a th:href="@{/reservation/voiture/{id}(id=${voiture.id})}">Réserver</a>
-                            </span>
-                        <span th:unless="${voiture.disponible}">
-                                <a th:href="@{/details-reservation/{id}(id=${voiture.id})}">Détails de la réservation</a>
-                        </span>
-
+                        <a th:if="${voiture.disponible}" th:href="@{/details-reservation/{id}(id=${voiture.id})}" class="btn btn-success">Détails de la Réservation</a>
+                        <a th:if="${!voiture.disponible}" th:href="@{/gestion-reservation/{id}(id=${voiture.id})}" class="btn btn-primary">Détails de la Réservation</a>
                     </td>
                 </tr>
 
