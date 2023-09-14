@@ -107,7 +107,7 @@ public class VoitureControleur {
     }
     @GetMapping("/gestion-location-voiture")
     public String gestionLocationVoitures(Model model) {
-        List<Voiture> listVoitures = voitureService.findAll();
+        List<Voiture> listVoitures = voitureService.findListVoitureDisponible();
         model.addAttribute("listVoiture", listVoitures);
         return "gestion-location-voiture";
     }

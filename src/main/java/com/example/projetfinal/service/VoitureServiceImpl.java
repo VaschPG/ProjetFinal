@@ -110,4 +110,16 @@ public class VoitureServiceImpl implements VoitureService {
         }
         return listVoiture;
     }
+
+    @Override
+    public List<Voiture> findListVoitureDisponible() {
+        List<Voiture> listVoiture = voitureRepository.findAll();
+        List<Reservation> listReservation = reservationService.findAll();
+        for(int i = 0; i < listReservation.size();i++){
+            if(listVoiture.contains(listReservation.get(i).getVoiture())){
+                listReservation.get(i).getVoiture().setDisponible(true);
+            }
+        }
+        return listVoiture;
+    }
 }

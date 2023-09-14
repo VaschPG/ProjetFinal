@@ -19,4 +19,5 @@ public interface VoitureService {
     List<Voiture> findVoitureNonReserve();
     Voiture findById(int id);
 
+    List<Voiture> findListVoitureDisponible();
 }

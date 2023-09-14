@@ -29,43 +29,5 @@ public class Reservation {
     @JoinColumn(name="reservation_voiture_FK")
     private Voiture voiture;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getEmploye() {
-        return employe;
-    }
-
-    public void setEmploye(String employe) {
-        this.employe = employe;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Voiture getVoiture() {
-        return voiture;
-    }
-
-    public void setVoiture(Voiture voiture) {
-        this.voiture = voiture;
-    }
 }
