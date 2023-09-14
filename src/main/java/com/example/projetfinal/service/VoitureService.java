@@ -17,4 +17,6 @@ public interface VoitureService {
     List<Voiture> findVoitureByMileage(int mileage);
 
     List<Voiture> findVoitureNonReserve();
+    Voiture findById(int id);
+
 }

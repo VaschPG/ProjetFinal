@@ -6,6 +6,8 @@ import com.example.projetfinal.entity.Voiture;
 import com.example.projetfinal.repository.ReservationRepository;
 import com.example.projetfinal.service.ClientService;
 import com.example.projetfinal.service.ReservationService;
+import com.example.projetfinal.service.ReservationService;
+import com.example.projetfinal.service.ReservationServiceImpl;
 import com.example.projetfinal.service.VoitureService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -107,5 +109,21 @@ public class ReservationControleur {
             reservationRepository.save(reservationExistant);
         }
         return "redirect:/gestion-reservations";
+    @GetMapping("/reservation/details/{id}")
+    public String reservationDetails(@PathVariable int id, Model model) {
+        Reservation reservation = reservationService.findById(id);
+        model.addAttribute("reservation",reservation);
+        return "details-reservation";
+    }
+
+    @GetMapping ("/reservation/voiture/{id}")
+    public String reserverVoiture(@PathVariable int id, Model model) {
+
+        Voiture voiture = voitureService.findById(id);
+        if (voiture != null && voiture.isDisponible()) {
+            return "redirect:/gestion-reservations";
+        } else {
+            return "redirect:/details-reservation";
+        }
     }
 }

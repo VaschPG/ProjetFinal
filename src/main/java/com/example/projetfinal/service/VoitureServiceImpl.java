@@ -18,6 +18,14 @@ public class VoitureServiceImpl implements VoitureService {
     private ReservationService reservationService;
 
     @Override
+    public Voiture findById(int id) {
+        Optional<Voiture> optionalVoiture = voitureRepository.findById(id);
+        return optionalVoiture.orElse(null);
+    }
+    public VoitureServiceImpl(VoitureRepository voitureRepository){
+        this.voitureRepository=voitureRepository;
+    }
+    @Override
     public Voiture findVoitureByLicense(String license) {
         return null;
     }

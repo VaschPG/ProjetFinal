@@ -1,6 +1,8 @@
 package com.example.projetfinal.controleur;
 
 import com.example.projetfinal.entity.Client;
+import com.example.projetfinal.entity.Reservation;
+import com.example.projetfinal.service.ReservationService;
 import com.example.projetfinal.entity.Voiture;
 import com.example.projetfinal.repository.VoitureRepository;
 import com.example.projetfinal.service.VoitureService;
@@ -103,4 +105,12 @@ public class VoitureControleur {
         model.addAttribute("voiture",voitureService.findVoitureById(id));
         return "voiture-form";
     }
+    @GetMapping("/gestion-location-voiture")
+    public String gestionLocationVoitures(Model model) {
+        List<Voiture> listVoitures = voitureService.findAll();
+        model.addAttribute("listVoiture", listVoitures);
+        return "gestion-location-voiture";
+    }
+
+
 }

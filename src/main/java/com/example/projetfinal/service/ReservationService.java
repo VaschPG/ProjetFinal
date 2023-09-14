@@ -9,5 +9,4 @@ public interface ReservationService {
     void deleteReservation(int id);
     Reservation findById(int id);
 
-    List<Reservation> findAllClientReservationsById(int id);
 }
