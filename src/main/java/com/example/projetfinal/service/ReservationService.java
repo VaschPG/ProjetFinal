@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ReservationService {
     List<Reservation> findAll();
-    Reservation deleteReservation(int id);
+    void deleteReservation(int id);
     Reservation findById(int id);
+
 }

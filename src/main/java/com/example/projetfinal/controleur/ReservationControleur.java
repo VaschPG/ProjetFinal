@@ -1,29 +1,37 @@
 package com.example.projetfinal.controleur;
 
+import com.example.projetfinal.entity.Client;
 import com.example.projetfinal.entity.Reservation;
+import com.example.projetfinal.entity.Voiture;
+import com.example.projetfinal.repository.ReservationRepository;
+import com.example.projetfinal.service.ClientService;
 import com.example.projetfinal.service.ReservationService;
+import com.example.projetfinal.service.ReservationService;
+import com.example.projetfinal.service.ReservationServiceImpl;
 import com.example.projetfinal.service.VoitureService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/gestion-reservation")
+@RequestMapping("/gestion-reservations")
 public class ReservationControleur {
 
     @Autowired
-
     private ReservationService reservationService;
+    @Autowired
+    private VoitureService voitureService;
 
-    public ReservationControleur (ReservationService reservationService) {
-        this.reservationService = reservationService;
-    }
+    @Autowired
+    private ClientService clientService;
+    @Autowired
+    private ReservationRepository reservationRepository;
+
 
     @GetMapping
     public String gestionReservations (Model model) {
@@ -32,10 +40,10 @@ public class ReservationControleur {
         return "gestion-reservations";
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping ("/delete/{id}")
     public String supprimerReservation (@PathVariable("id") int id) {
         reservationService.deleteReservation(id);
-        return "redirect:/gestion-reservation";
+        return "redirect:/gestion-reservations";
     }
 
     @GetMapping("/{id}")
@@ -54,7 +62,7 @@ public class ReservationControleur {
     public String gestionReservationForm(Model model){
         model.addAttribute("reservation",new Reservation());
         model.addAttribute("client",new Client());
-        model.addAttribute("voiture",new Voiture(1, 2020, 38063, "Suburban 1500", "HFR-943", 1643.0));
+        model.addAttribute("voiture",new Voiture());
         model.addAttribute("listClient",clientService.findAllClients());
         model.addAttribute("listVoiture",voitureService.findVoitureNonReserve());
         return "reservation-form";
