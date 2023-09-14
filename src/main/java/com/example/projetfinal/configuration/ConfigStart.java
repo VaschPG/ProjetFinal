@@ -141,7 +141,9 @@ public class ConfigStart  implements CommandLineRunner {
                 String[] reservation = ligne.split(splitBy);
                 if(!reservation[0].equals("")){
                     Reservation newReservation = new Reservation();
-                    Date date = new SimpleDateFormat("dd/mm/yyyy").parse(reservation[1]);
+                    SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+                    Date date = formatter.parse(reservation[1]);
+                    //Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
                     newReservation.setDate(date);
                     newReservation.setEmploye(reservation[2]);
                     newReservation.setVoiture(voitureRepository.findById(Integer.parseInt(reservation[3])).get());

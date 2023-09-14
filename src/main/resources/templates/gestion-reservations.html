@@ -14,25 +14,26 @@
         <div class="row">
             <h1>Gestion de Réservations</h1>
         </div>
-
         <div class="row">
             <h3>
                 <a href="/gestion-location-voiture">Gestion de location de voiture</a>
             </h3>
         </div>
-
         <div class="row">
             <h3>
-                <a href="/gestion-client">Gestion de Client</a>
+                <a href="/gestion-client">Gestion de clients</a>
             </h3>
         </div>
-
         <div class="row">
             <h3>
                 <a href="/gestion-voiture">Gestion de Voitures</a>
             </h3>
         </div>
-
+        <div class="row">
+            <div class="col-md-12 bg-light text-right">
+            <button type="button" class="btn btn-success" onclick="window.location.href='/gestion-reservations/reservation-form'">Ajouter une reservation</button>
+            </div>
+        </div>
         <div class="row">
             <table class="table table-bordered table-striped">
                 <thead>
@@ -55,7 +56,11 @@
                     <td th:text="${reservation.client.nom + ' ' + reservation.client.prenom}"></td>
                     <td th:text="${reservation.voiture.model + ' (' + reservation.voiture.license + ')'}"></td>
                     <td>
-                        <form th:action="@{'gestion-reservation/delete/' + ${reservation.id}}" method="post">
+                        <form th:action="@{'gestion-reservations/reservation-form/{id}'(id=${reservation.getId()})}" th:method="GET">
+                            <button class="pull-left fa fa-pencil btn btn-warning" type="submit" title="Modifier"></button>
+                        </form>
+
+                        <form th:action="@{'gestion-reservations/delete/{id}'(id=${reservation.getId()})}" th:method="DELETE">
                             <button class="fa fa-trash btn btn-danger" aria-hidden="true" type="submit"></button>
                         </form>
                     </td>

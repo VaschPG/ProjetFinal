@@ -1,5 +1,6 @@
 package com.example.projetfinal.service;
 
+import com.example.projetfinal.entity.Reservation;
 import com.example.projetfinal.entity.Voiture;
 import com.example.projetfinal.repository.VoitureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import java.util.Optional;
 public class VoitureServiceImpl implements VoitureService {
     @Autowired
     private VoitureRepository voitureRepository;
+    @Autowired
+    private ReservationService reservationService;
+
     @Override
     public Voiture findById(int id) {
         Optional<Voiture> optionalVoiture = voitureRepository.findById(id);
@@ -93,5 +97,17 @@ public class VoitureServiceImpl implements VoitureService {
             }
         }
         return voitureMileage;
+    }
+
+    @Override
+    public List<Voiture> findVoitureNonReserve() {
+        List<Voiture> listVoiture = voitureRepository.findAll();
+        List<Reservation> listReservation = reservationService.findAll();
+        for(int i = 0; i < listReservation.size();i++){
+           if(listVoiture.contains(listReservation.get(i).getVoiture())){
+               listVoiture.remove(listReservation.get(i).getVoiture());
+           }
+        }
+        return listVoiture;
     }
 }

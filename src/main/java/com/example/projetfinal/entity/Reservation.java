@@ -2,6 +2,7 @@ package com.example.projetfinal.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -16,6 +17,7 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date date;
     String employe;
 

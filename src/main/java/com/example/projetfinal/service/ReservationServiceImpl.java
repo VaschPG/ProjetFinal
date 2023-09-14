@@ -18,8 +18,10 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Reservation deleteReservation(int id) {
-        return null;
+    public void deleteReservation(int id) {
+        if(reservationRepository.existsById(id)){
+            reservationRepository.deleteById(id);
+        }
     }
 
     @Override
