@@ -47,7 +47,7 @@ public class ReservationControleur {
     }
 
     @GetMapping("/{id}")
-    public String gestionReservations(@PathVariable("id") int id, Model model) {
+    public String gestionIdReservations(@PathVariable("id") int id, Model model) {
 
         Client client = clientService.findClientById(id);
 
