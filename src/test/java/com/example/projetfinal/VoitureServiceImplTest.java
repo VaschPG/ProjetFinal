@@ -39,8 +39,8 @@ class VoitureServiceImplTest {
     void testFindVoitureByPriceInf() {
         // liste de voitures simulée
         List<Voiture> voitures = new ArrayList<>();
-        voitures.add(new Voiture(1, 2009, 38063, "Suburban 1500", "HFR-943", 1643.0));
-        voitures.add(new Voiture(2, 2004, 41882, "Escalade ESV", "EFE-341", 368.0));
+        voitures.add(new Voiture(1, 2009, 38063, "Suburban 1500", "HFR-943", 1643.0,false));
+        voitures.add(new Voiture(2, 2004, 41882, "Escalade ESV", "EFE-341", 368.0,false));
         when(voitureRepository.findAll()).thenReturn(voitures);
         List<Voiture> result = voitureService.findVoitureByPriceInf(1000.0); //prix inférieur à 1000.0
         // Vérifier le résultat
@@ -49,8 +49,8 @@ class VoitureServiceImplTest {
     @Test
     void testFindVoitureByYear() {
         List<Voiture> voitures = new ArrayList<>();
-        voitures.add(new Voiture(1, 2020, 38063, "Suburban 1500", "HFR-943", 1643.0));
-        voitures.add(new Voiture(2, 2004, 41882, "Escalade ESV", "EFE-341", 368.0));
+        voitures.add(new Voiture(1, 2020, 38063, "Suburban 1500", "HFR-943", 1643.0,false));
+        voitures.add(new Voiture(2, 2004, 41882, "Escalade ESV", "EFE-341", 368.0,false));
         when(voitureRepository.findAll()).thenReturn(voitures);
         List<Voiture> result = voitureService.findVoitureByYear(2020);
         assertEquals(1, result.size());
@@ -58,8 +58,8 @@ class VoitureServiceImplTest {
     @Test
     void testFindVoitureByMileage() {
         List<Voiture> voitures = new ArrayList<>();
-        voitures.add(new Voiture(1, 2009, 38063, "Suburban 1500", "HFR-943", 1643.0));
-        voitures.add(new Voiture(2, 2004, 41882, "Escalade ESV", "EFE-341", 368.0));
+        voitures.add(new Voiture(1, 2009, 38063, "Suburban 1500", "HFR-943", 1643.0,false));
+        voitures.add(new Voiture(2, 2004, 41882, "Escalade ESV", "EFE-341", 368.0,false));
         when(voitureRepository.findAll()).thenReturn(voitures);
         voitures = voitureService.findVoitureByMileage(38063);
         assertNotNull(voitures);

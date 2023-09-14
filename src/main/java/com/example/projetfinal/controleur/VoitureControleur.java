@@ -23,10 +23,6 @@ public class VoitureControleur {
     @Autowired
     private VoitureRepository voitureRepository;
 
-    public VoitureControleur(VoitureService voitureService){
-        this.voitureService=voitureService;
-    }
-
     @GetMapping("gestion-voiture")
     public String pageVoiture(Model model, @ModelAttribute("voiture") Voiture voiture) {
         if(voiture.getModel() != null && voiture.getYear() != 0 && voiture.getMileage() != 0 && voiture.getLicense() != null && voiture.getPrice() != 0){
@@ -34,7 +30,7 @@ public class VoitureControleur {
             model.addAttribute("listVoiture",list);
         }else{
             List<Voiture> listVoitures = voitureService.findAll();
-            model.addAttribute("voiture",new Voiture(1, 2020, 38063, "Suburban 1500", "HFR-943", 1643.0));
+            model.addAttribute("voiture",new Voiture());
             model.addAttribute("listVoiture", listVoitures);
         }
         return "gestion-voiture";
@@ -77,70 +73,42 @@ public class VoitureControleur {
         return voitureService.add(voiture);
     }
     @DeleteMapping("/voiture/{id}")
-    public String deleteVoitureById(@PathVariable("id") int id){
+    public void deleteVoitureById(@PathVariable("id") int id) {
         voitureService.deleteVoitureById(id);
-
-
-    @GetMapping("/voiture-form")
-    public String gestionVoitureForm(Model model){
-        model.addAttribute("voiture",new Voiture(1, 2020, 38063, "Suburban 1500", "HFR-943", 1643.0));
-        return "voiture-form";
     }
 
-    @PostMapping("/voiture-form/save")
-    public String saveVoiture(Model model,@ModelAttribute("Voiture") Voiture voiture){
-        if(!voitureRepository.existsById(voiture.getId())){
-            voitureRepository.save(voiture);
-        }else{
-            Voiture voitureExistant = voitureRepository.getReferenceById(voiture.getId());
-            voitureExistant.setModel(voiture.getModel());
-            voitureExistant.setLicense(voiture.getLicense());
-            voitureExistant.setYear(voiture.getYear());
-            voitureExistant.setMileage(voiture.getMileage());
-            voitureExistant.setPrice(voiture.getPrice());
-            voitureRepository.save(voitureExistant);
+        @GetMapping("/voiture-form")
+        public String gestionVoitureForm (Model model){
+            model.addAttribute("voiture", new Voiture());
+            return "voiture-form";
         }
-        return "redirect:/gestion-voiture";
-    }
-  /**  @PutMapping("/voiture")
-    public Voiture ajouterVoiture(@PathVariable){
-        return null;
-    }**/
 
-
-    @GetMapping("/voiture-form")
-    public String gestionVoitureForm(Model model){
-        model.addAttribute("voiture",new Voiture());
-        return "voiture-form";
-    }
-
-    @PostMapping("/voiture-form/save")
-    public String saveVoiture(Model model,@ModelAttribute("Voiture") Voiture voiture){
-        if(!voitureRepository.existsById(voiture.getId())){
-            voitureRepository.save(voiture);
-        }else{
-            Voiture voitureExistant = voitureRepository.getReferenceById(voiture.getId());
-            voitureExistant.setModel(voiture.getModel());
-            voitureExistant.setLicense(voiture.getLicense());
-            voitureExistant.setYear(voiture.getYear());
-            voitureExistant.setMileage(voiture.getMileage());
-            voitureExistant.setPrice(voiture.getPrice());
-            voitureRepository.save(voitureExistant);
+        @PostMapping("/voiture-form/save")
+        public String saveVoiture (Model model, @ModelAttribute("Voiture") Voiture voiture){
+            if (!voitureRepository.existsById(voiture.getId())) {
+                voitureRepository.save(voiture);
+            } else {
+                Voiture voitureExistant = voitureRepository.getReferenceById(voiture.getId());
+                voitureExistant.setModel(voiture.getModel());
+                voitureExistant.setLicense(voiture.getLicense());
+                voitureExistant.setYear(voiture.getYear());
+                voitureExistant.setMileage(voiture.getMileage());
+                voitureExistant.setPrice(voiture.getPrice());
+                voitureRepository.save(voitureExistant);
+            }
+            return "redirect:/gestion-voiture";
         }
-        return "redirect:/gestion-voiture";
-    }
 
-    @GetMapping("gestion-voiture/{id}")
-    public String getVoitureFormUpdate(@PathVariable("id") int id,Model model) throws Exception {
-        model.addAttribute("voiture",voitureService.findVoitureById(id));
-        return "voiture-form";
-    }
-    @GetMapping("/gestion-location-voiture")
-    public String gestionLocationVoitures(Model model) {
-        List<Voiture> listVoitures = voitureService.findListVoitureDisponible();
-        model.addAttribute("listVoiture", listVoitures);
-        return "gestion-location-voiture";
-    }
+        @GetMapping("gestion-voiture/{id}")
+        public String getVoitureFormUpdate ( @PathVariable("id") int id, Model model) throws Exception {
+            model.addAttribute("voiture", voitureService.findVoitureById(id));
+            return "voiture-form";
+        }
+        @GetMapping("/gestion-location-voiture")
+        public String gestionLocationVoitures (Model model){
+            List<Voiture> listVoitures = voitureService.findListVoitureDisponible();
+            model.addAttribute("listVoiture", listVoitures);
+            return "gestion-location-voiture";
+        }
 
-
-}
+    }

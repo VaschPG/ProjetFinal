@@ -22,7 +22,7 @@ public class Voiture {
     double price;
     boolean disponible;
 
-    Integer reservationId;
+    //Integer reservationId;
 
 
 }
