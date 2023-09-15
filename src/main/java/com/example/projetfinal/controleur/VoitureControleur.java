@@ -25,8 +25,29 @@ public class VoitureControleur {
 
     @GetMapping("gestion-voiture")
     public String pageVoiture(Model model, @ModelAttribute("voiture") Voiture voiture) {
-        if(voiture.getModel() != null && voiture.getYear() != 0 && voiture.getMileage() != 0 && voiture.getLicense() != null && voiture.getPrice() != 0){
-            List<Voiture> list = voitureService.findVoitureByParam(voiture.getYear(),voiture.getMileage(),voiture.getModel(), voiture.getLicense(),voiture.getPrice());
+        if(voiture.getModel() != null || voiture.getMileage() != null || voiture.getPrice() != null){
+            String modelV = "";
+            String mileageV = "";
+            String priceV = "";
+            String yearV = "";
+            String licenseV = "";
+            if(voiture.getModel() != null){
+                modelV = voiture.getModel();
+            }
+            if(voiture.getYear() != null){
+                yearV = String.valueOf(voiture.getYear());
+            }
+            if(voiture.getMileage()!=null){
+                mileageV = String.valueOf(voiture.getMileage());
+            }
+            if(voiture.getPrice()!=null){
+                String rounded = String.format("%.0f", voiture.getPrice());
+                priceV = rounded;
+            }
+            if(voiture.getLicense() != null){
+                licenseV = voiture.getLicense();
+            }
+            List<Voiture> list = voitureService.findVoitureByParam(yearV,mileageV,modelV,licenseV,priceV);
             model.addAttribute("listVoiture",list);
         }else{
             List<Voiture> listVoitures = voitureService.findAll();
@@ -98,17 +119,43 @@ public class VoitureControleur {
             }
             return "redirect:/gestion-voiture";
         }
-
-        @GetMapping("gestion-voiture/{id}")
-        public String getVoitureFormUpdate ( @PathVariable("id") int id, Model model) throws Exception {
-            model.addAttribute("voiture", voitureService.findVoitureById(id));
-            return "voiture-form";
-        }
-        @GetMapping("/gestion-location-voiture")
-        public String gestionLocationVoitures (Model model){
+    @GetMapping("gestion-voiture/{id}")
+    public String getVoitureFormUpdate(@PathVariable("id") int id,Model model) throws Exception {
+        model.addAttribute("voiture",voitureService.findVoitureById(id));
+        return "voiture-form";
+    }
+    @GetMapping("/gestion-location-voiture")
+    public String gestionLocationVoitures(Model model, @ModelAttribute Voiture voiture) {
+        if(voiture.getModel() != null || voiture.getMileage() != null || voiture.getPrice() != null){
+            String modelV = "";
+            String mileageV = "";
+            String priceV = "";
+            String yearV = "";
+            String licenseV = "";
+            if(voiture.getModel() != null){
+                modelV = voiture.getModel();
+            }
+            if(voiture.getYear() != null){
+                yearV = String.valueOf(voiture.getYear());
+            }
+            if(voiture.getMileage()!=null){
+                mileageV = String.valueOf(voiture.getMileage());
+            }
+            if(voiture.getPrice()!=null){
+                String rounded = String.format("%.0f", voiture.getPrice());
+                priceV = rounded;
+            }
+            if(voiture.getLicense() != null){
+                licenseV = voiture.getLicense();
+            }
+            List<Voiture> list = voitureService.findVoitureByParam(yearV,mileageV,modelV,licenseV,priceV);
+            model.addAttribute("listVoiture",list);
+        }else {
             List<Voiture> listVoitures = voitureService.findListVoitureDisponible();
+            model.addAttribute("voiture", new Voiture());
             model.addAttribute("listVoiture", listVoitures);
-            return "gestion-location-voiture";
         }
+        return "gestion-location-voiture";
+    }
 
     }

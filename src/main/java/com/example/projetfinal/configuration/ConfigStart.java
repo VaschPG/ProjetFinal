@@ -53,7 +53,7 @@ public class ConfigStart  implements CommandLineRunner {
         voiture1.setMileage(20000);
         voiture1.setModel("Toyota");
         voiture1.setLicense("ZAB-324");
-        voiture1.setPrice(1000);
+        voiture1.setPrice(1000.0);
 
         Reservation reservation1 = new Reservation();
         Date date1 = new Date("11/11/2023");
@@ -147,7 +147,6 @@ public class ConfigStart  implements CommandLineRunner {
                     newReservation.setDate(date);
                     newReservation.setEmploye(reservation[2]);
                     newReservation.setVoiture(voitureRepository.findById(Integer.parseInt(reservation[3])).get());
-                    System.out.println("test");
                     listClient.get(i).add(newReservation);
                 }
                 clientRepository.save(listClient.get(i));

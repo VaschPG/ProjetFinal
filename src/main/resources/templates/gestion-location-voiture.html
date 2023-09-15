@@ -32,7 +32,7 @@
             </h3>
         </div>
 
-        <form th:action="@{gestion-voiture}" method="get">
+        <form th:action="@{gestion-location-voiture}" th:object="${voiture}" method="get">
 
             <div class="row my-3">
                 <div class="col"></div>
@@ -42,7 +42,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">Modèle</div>
                         </div>
-                        <input type="text" name="model" class="form-control">
+                        <input type="text" name="model" id="model" th:value="*{model}" class="form-control">
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">Mileage</div>
                         </div>
-                        <input type="text" name="mileage" class="form-control">
+                        <input type="text" name="mileage" th:value="*{mileage}" class="form-control">
                     </div>
                 </div>
 
@@ -60,7 +60,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">Prix</div>
                         </div>
-                        <input type="text" name="prix" class="form-control">
+                        <input type="text" name="price" th:value="*{price}" class="form-control">
                         <button type="submit" class="btn btn-primary">Rechercher</button>
                     </div>
                 </div>

@@ -64,9 +64,10 @@ public class VoitureServiceImpl implements VoitureService {
     }
 
     @Override
-    public List<Voiture> findVoitureByParam(int year, int mileage, String model, String license, double price) {
+    public List<Voiture> findVoitureByParam(String year, String mileage, String model, String license, String price) {
         return voitureRepository.findVoituresByParams(year,mileage,model,license,price);
     }
+
 
     @Override
     public List<Voiture> findVoitureByPriceInf(double price) {

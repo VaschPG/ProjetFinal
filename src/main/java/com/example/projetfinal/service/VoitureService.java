@@ -12,7 +12,7 @@ public interface VoitureService {
     List<Voiture> findAll();
     void deleteVoitureById(int id);
     Voiture add(Voiture voiture);
-    List<Voiture> findVoitureByParam(int year, int mileage, String model, String license, double price);
+    List<Voiture> findVoitureByParam(String year, String mileage, String model, String license, String price);
     List<Voiture> findVoitureByPriceInf(double price);
     List<Voiture> findVoitureByYear(int year);
     List<Voiture> findVoitureByMileage(int mileage);

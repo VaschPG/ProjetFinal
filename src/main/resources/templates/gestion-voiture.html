@@ -35,14 +35,14 @@
             <div class="col-sm-3">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Nom</div>
+                        <div class="input-group-text">Model</div>
                     </div>
-                    <input type="text" name="nom" th:value="*{year}" class="form-control">
+                    <input type="text" name="model" th:value="*{model}" class="form-control">
 
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Telephone</div>
+                        <div class="input-group-text">Mileage</div>
                     </div>
-                    <input type="text" name="telephone" th:value="*{mileage}" class="form-control">
+                    <input type="text" name="mileage" th:value="*{mileage}" class="form-control">
                 </div>
             </div>
             <div class="col"></div>
@@ -52,9 +52,9 @@
             <div class="col-sm-3">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Adresse</div>
+                        <div class="input-group-text">Price</div>
                     </div>
-                    <input type="text" name="adresse" th:value="*{price}" class="form-control">
+                    <input type="text" name="price" th:value="*{price}" class="form-control">
                     <button type="submit" class="btn btn-primary">Chercher</button>
                 </div>
             </div>
@@ -76,7 +76,7 @@
             </tr>
             <tbody>
 
-            <tr class="table-light" th:each="voiture: ${listVoiture}">
+            <tr class="table-light" th:each="voiture : ${listVoiture}">
                 <td th:text="${voiture.getModel()}"/>
                 <td th:text="${voiture.getYear()}"/>
                 <td th:text="${voiture.getMileage()}"/>
@@ -90,7 +90,6 @@
                     <form th:action="@{'voiture/{id}'(id=${voiture.getId()})}" th:method="DELETE">
                         <button class="pull-right fa fa-trash btn btn-danger" aria-hidden="true" type="submit"></button>
                     </form>
-                    <a href="modifier-voiture.html">Modifier</a>
                 </td>
             </tr>
             </tbody>
