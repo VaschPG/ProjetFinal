@@ -2,6 +2,7 @@ package com.example.projetfinal.controleur;
 
 import com.example.projetfinal.entity.Client;
 import com.example.projetfinal.entity.Reservation;
+import com.example.projetfinal.repository.ReservationRepository;
 import com.example.projetfinal.service.ReservationService;
 import com.example.projetfinal.entity.Voiture;
 import com.example.projetfinal.repository.VoitureRepository;
@@ -22,6 +23,8 @@ public class VoitureControleur {
     private VoitureService voitureService;
     @Autowired
     private VoitureRepository voitureRepository;
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     @GetMapping("gestion-voiture")
     public String pageVoiture(Model model, @ModelAttribute("voiture") Voiture voiture) {
@@ -94,10 +97,15 @@ public class VoitureControleur {
         return voitureService.add(voiture);
     }
     @DeleteMapping("/voiture/{id}")
-    public void deleteVoitureById(@PathVariable("id") int id) {
+    public String deleteClientById(@PathVariable("id") int id){
+        for(Reservation reservation:reservationRepository.findAll()){
+            if(reservation.getVoiture().getId() == id){
+               reservationRepository.deleteById(reservationRepository.getReferenceById(reservation.getId()).getId());
+            }
+        }
         voitureService.deleteVoitureById(id);
+        return "redirect:/gestion-voiture";
     }
-
         @GetMapping("/voiture-form")
         public String gestionVoitureForm (Model model){
             model.addAttribute("voiture", new Voiture());

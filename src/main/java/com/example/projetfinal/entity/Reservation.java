@@ -25,7 +25,7 @@ public class Reservation {
     @JoinColumn(name="client_id")
     private Client client;
 
-    @OneToOne(cascade = {CascadeType.MERGE})
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="reservation_voiture_FK")
     private Voiture voiture;
 

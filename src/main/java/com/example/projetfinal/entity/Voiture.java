@@ -13,13 +13,14 @@ import lombok.*;
 public class Voiture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    int id;
     Integer year;
     Integer mileage;
     String model;
     @Column(unique = true)
     String license;
     Double price;
+
     boolean disponible;
 
     //Integer reservationId;
